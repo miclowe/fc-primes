@@ -1,0 +1,14 @@
+# JetBrain's Idea specific stuff #
+.idea*
+*.iml
+
+# IntelliJ
+/out/
+
+### Gradle ###
+/.gradle
+/.idea
+/build
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
