@@ -8,7 +8,8 @@ class PrimeTable {
       try {
         numOfPrimes = args[0].toInteger()
       } catch(NumberFormatException e) {
-        throw new IllegalArgumentException("There was a problem with the argument. Make sure a number is passed.")
+        println "There was a problem with the argument. Make sure a number is passed."
+        return
       }
     }
 
