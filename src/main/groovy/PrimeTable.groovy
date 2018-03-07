@@ -1,10 +1,25 @@
 class PrimeTable {
 
   static void main(String[] args) {
-    int numOfPrimes = args*.toInteger()[0] ?: 10
+
+    int numOfPrimes = 0
+
+    if (args) {
+      try {
+        numOfPrimes = args[0].toInteger()
+      } catch(NumberFormatException e) {
+        throw new IllegalArgumentException("There was a problem with the argument. Make sure a number is passed.")
+      }
+    }
+
+    numOfPrimes = numOfPrimes > 0 ? numOfPrimes : 10
+
     int upperBound = estimateUpperBound(numOfPrimes)
     try {
-      println getListOfPrimes(upperBound).take(numOfPrimes)
+      List<Integer> primes = getListOfPrimes(upperBound).take(numOfPrimes)
+      println "\nGetting multiplication table for first ${numOfPrimes} prime number(s)"
+      String table = formatTable(primes)
+      println table
     } catch (Exception e) {
       println e.message
     }
@@ -14,7 +29,7 @@ class PrimeTable {
   * Use Prime number theorem to estimate the nth prime number
   * https://en.wikipedia.org/wiki/Prime_number_theorem#Approximations_for_the_nth_prime_number
   */
-  static int estimateUpperBound(int num) {
+  static int estimateUpperBound(int num = 10) {
     if (num < 6) {
       return (num * 2) + 1
     } else {
@@ -52,6 +67,28 @@ class PrimeTable {
 
     // Unmarked/non-prime indices have been set to 0
     numList.findAll { it > 1 }
+  }
+
+  static String formatTable(List<Integer> primes) {
+    // Get the largest number and use to add padding to smaller numbers for alignment
+    int longestProd = (primes.last() ** 2).toString().length()
+    String cellFormat = " %${longestProd + 2}d" * primes.size() + '\n'
+
+    String output = ''
+
+    output += '\n'
+    output += '      '
+    output += sprintf(cellFormat, primes)
+    output += '      '
+    output += ("-" * primes.size() * (longestProd + 3) + '\n')
+    primes.each { p ->
+      output += sprintf(" %3d |", p)
+      output += sprintf(cellFormat, primes.collect { it * p })
+    }
+    output += '\n'
+
+    output
+
   }
 
 }

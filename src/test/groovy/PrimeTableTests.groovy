@@ -40,8 +40,35 @@ class PrimeTableTests extends GroovyTestCase {
   void test_getListOfPrimes_BoundLessThan2_ThrowsException() {
     try {
       solution.getListOfPrimes(1)
+      fail("expected IllegalArgumentException")
     } catch (IllegalArgumentException e) {
       assert e.message == 'Bound must be larger than 1'
     }
   }
+
+  /* formatTable */
+  @Test
+  void test_formatTable_CalculatesProducts() {
+    List<Integer> primes = [2, 3, 5, 7]
+    String output = solution.formatTable(primes)
+
+    primes.each { p ->
+      primes.collect { it * p }.each {
+        assert output.contains(it.toString())
+      }
+    }
+  }
+
+  /* main */
+  @Test
+  void test_main() {
+    try {
+      solution.main('a')
+      fail("expected IllegalArgumentException")
+    } catch (IllegalArgumentException e) {
+      assert e.message == 'There was a problem with the argument. Make sure a number is passed.'
+    }
+  }
+
+
 }
