@@ -11,14 +11,20 @@ class PrimeTable {
   *
   */
   static List<Integer> getListOfPrimes(Integer bound) {
+    if (bound < 2) {
+      throw new IllegalArgumentException("Bound must be larger than 1")
+    }
+
     // Initializing list with [0, 1] to represent the first non-prime numbers. Doing so makes "unmarking" of elements cleaner
     List<Integer> numList = [0, 1]
     numList += (2..bound).toList()
 
-    (2..((int) Math.sqrt(bound))).each { n ->
-      // Skip to the square of n. All numbers in between have already been checked by previous iterations and unmarked or left as marked
-      ((n**2)..bound).step(n) {
-        numList[it] = 0
+    if (bound > 3) {
+      (2..((int) Math.sqrt(bound))).each { n ->
+        // Skip to the square of n. All numbers in between have already been checked by previous iterations and unmarked or left as marked
+        ((n**2)..bound).step(n) {
+          numList[it] = 0
+        }
       }
     }
 
@@ -28,9 +34,11 @@ class PrimeTable {
 
   static void main(String[] args) {
     int bound = args*.toInteger()[0] ?: 16
-    println getListOfPrimes(bound)
+    try {
+      println getListOfPrimes(bound)
+    } catch (Exception e) {
+      println e.message
+    }
   }
-
-
 
 }
