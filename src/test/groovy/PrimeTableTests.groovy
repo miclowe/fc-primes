@@ -82,35 +82,30 @@ class PrimeTableTests extends GroovyTestCase {
   @Test
   void test_main_DoesNotAcceptNonNumericArgument() {
     solution.main('a')
-    assertEquals('There was a problem with the argument. Make sure a number is passed.\r\n', out.toString())
+    assert out.toString().contains('There was a problem with the argument. Make sure a number is passed.')
   }
 
   @Test
   void test_main_AcceptsIntegerArgument() {
     solution.main('2')
     List<String> expected = [
-        "",
-        "Getting multiplication table for first 2 prime number(s)\r",
-        "",
+        "Getting multiplication table for first 2 prime number(s)",
         "         2   3",
         "      --------",
         "   2 |   4   6",
-        "   3 |   6   9",
-        "",
-        "\r"
+        "   3 |   6   9"
     ]
 
-    assert out.toString().split('\n').size() == 9
-    assertEquals(expected, out.toString().split('\n'))
+    expected.each {
+      assert out.toString().contains(it)
+    }
   }
 
   @Test
   void test_main_NoArguments_DefaultToTen() {
     solution.main()
     List<String> expected = [
-        "",
-        "Getting multiplication table for first 10 prime number(s)\r",
-        "",
+        "Getting multiplication table for first 10 prime number(s)",
         "           2     3     5     7    11    13    17    19    23    29",
         "      ------------------------------------------------------------",
         "   2 |     4     6    10    14    22    26    34    38    46    58",
@@ -122,20 +117,18 @@ class PrimeTableTests extends GroovyTestCase {
         "  17 |    34    51    85   119   187   221   289   323   391   493",
         "  19 |    38    57    95   133   209   247   323   361   437   551",
         "  23 |    46    69   115   161   253   299   391   437   529   667",
-        "  29 |    58    87   145   203   319   377   493   551   667   841",
-        "",
-        "\r"
+        "  29 |    58    87   145   203   319   377   493   551   667   841"
     ]
 
-    assert out.toString().split('\n').size() == 17
-    assertEquals(expected, out.toString().split('\n'))
+    expected.each {
+      assert out.toString().contains(it)
+    }
   }
 
   @Test
   void test_main_ArgumentZero_DefaultsToTen() {
     solution.main('0')
-    assert out.toString().split('\n').size() == 17
-    assertEquals("Getting multiplication table for first 10 prime number(s)\r", out.toString().split('\n')[1])
+    assert out.toString().contains("Getting multiplication table for first 10 prime number(s)")
   }
 
 }
