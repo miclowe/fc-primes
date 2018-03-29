@@ -22,7 +22,7 @@ docker run --rm -v "$PWD":/home/groovy/scripts -w /home/groovy/scripts groovy gr
 
 For tests:
 ```
-docker run --rm -v "$PWD":/home/gradle/project -w /home/gradle/project gradle-alpine ./gradlew test
+docker run --rm -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:alpine ./gradlew test
 ```
 
 ## Output
